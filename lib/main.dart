@@ -21,17 +21,44 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Chamados'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-          child: Column(
+      home: DefaultTabController(
+        length: 3, // número de tabs
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Chamados'),
+            centerTitle: true,
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.home), text: 'Home'),
+                Tab(icon: Icon(Icons.note), text: 'Chamados'),
+                Tab(icon: Icon(Icons.assignment), text: 'Chat'),
+              ],
+            ),
+          ),
+          body: TabBarView(
             children: [
-              PersonForm(),
-              const Divider(),
-              Expanded(child: PersonList()),
+              // conteúdo da primeira tab
+              Padding(
+                padding:
+                EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    PersonForm(),
+                  ],
+                ),
+              ),
+              // conteúdo da segunda tab
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: PersonList(),
+              ),
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: PersonList(),
+              ),
             ],
           ),
         ),
@@ -39,4 +66,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
