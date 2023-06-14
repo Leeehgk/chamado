@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
+
 
 class Person {
   final String name;
@@ -67,122 +67,128 @@ class _PersonFormState extends State<PersonForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Expanded(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 10),
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: 'Nome',
-                  prefixIcon: Icon(Icons.person),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 1, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 1,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      labelText: 'Nome',
+                      prefixIcon: Icon(Icons.person),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: Colors.red),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Por favor insira seu nome !';
+                      }
+                      return null;
+                    },
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 1, color: Colors.red),
-                    borderRadius: BorderRadius.circular(20),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: _ramalController,
+                    decoration: InputDecoration(
+                      labelText: 'Ramal',
+                      prefixIcon: Icon(Icons.phone),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: Colors.red),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Por favor insira seu ramal';
+                      }
+                      if (int.tryParse(value) == null) {
+                        return 'Por favor insira um ramal Valido';
+                      }
+                      return null;
+                    },
                   ),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor insira seu nome !';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 10),
-              TextFormField(
-                controller: _ramalController,
-                decoration: InputDecoration(
-                  labelText: 'Ramal',
-                  prefixIcon: Icon(Icons.phone),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 1, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
+                  SizedBox(
+                    height: 20,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 1, color: Colors.red),
-                    borderRadius: BorderRadius.circular(20),
+                  TextFormField(
+                    controller: _ipController,
+                    decoration: InputDecoration(
+                      labelText: 'ip',
+                      prefixIcon: Icon(Icons.auto_fix_high),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: Colors.red),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Por favor insira seu IP';
+                      }
+                      return null;
+                    },
                   ),
-                ),
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor insira seu ramal';
-                  }
-                  if (int.tryParse(value) == null) {
-                    return 'Por favor insira um ramal Valido';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                controller: _ipController,
-                decoration: InputDecoration(
-                  labelText: 'ip',
-                  prefixIcon: Icon(Icons.auto_fix_high),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 1, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
+                  SizedBox(
+                    height: 20,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 1, color: Colors.red),
-                    borderRadius: BorderRadius.circular(20),
+                  TextFormField(
+                    maxLines: null,
+                    controller: _problemController,
+                    decoration: InputDecoration(
+                      labelText: 'problema',
+                      prefixIcon: Icon(Icons.assignment),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: Colors.red),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Por favor insira seu problema';
+                      }
+                      return null;
+                    },
                   ),
-                ),
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor insira seu IP';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                maxLines: null,
-                controller: _problemController,
-                decoration: InputDecoration(
-                  labelText: 'problema',
-                  prefixIcon: Icon(Icons.assignment),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 1, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
+                  SizedBox(
+                    height: 20,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 1, color: Colors.red),
-                    borderRadius: BorderRadius.circular(20),
+                  ElevatedButton(
+                    onPressed: _savePerson,
+                    child: Text(
+                      'Salvar',
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor insira seu problema';
-                  }
-                  return null;
-                },
+                ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                onPressed: _savePerson,
-                child: Text(
-                  'Salvar',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

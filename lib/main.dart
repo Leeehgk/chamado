@@ -1,15 +1,21 @@
+import 'package:chamados/HomeScreen/LoginPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:chamados/firebase_options.dart';
 import 'package:chamados/HomeScreen/HomeScreen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(MaterialApp(
+    title: 'Login Page',
+    home: LoginPage(),
+  ));
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -39,25 +45,39 @@ class MyApp extends StatelessWidget {
             children: [
               // conteúdo da primeira tab
               Padding(
-                padding:
-                EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    PersonForm(),
+                    Flexible(
+                      flex: 1,
+                      child: PersonForm(),
+                    ),
                   ],
                 ),
               ),
               // conteúdo da segunda tab
               Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: PersonList(),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Column(
+                  children: [
+                    Flexible(
+                      flex: 1,
+                      child: PersonList(),
+                    ),
+                  ],
+                ),
               ),
+              // conteúdo da terceira tab
               Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: PersonList(),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Column(
+                  children: [
+                    Flexible(
+                      flex: 1,
+                      child: PersonList(),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
