@@ -217,6 +217,35 @@ class PersonList extends StatelessWidget {
             final person = people[index];
             return ListTile(
               title: Text(person.name),
+              trailing: InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Confirmação'),
+                        content: Text('Deseja realmente excluir ${person.name}?'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('Cancelar'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: Text('Excluir'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              deleteData(person.name);
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: Icon(Icons.delete),
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -232,6 +261,7 @@ class PersonList extends StatelessWidget {
     );
   }
 }
+
 
 class PersonDetailsScreen extends StatefulWidget {
   final Person person;
@@ -417,36 +447,6 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
                   child: const Text('Atualizar dados'),
                 ),
                 const SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Deletar Usuario'),
-                        content: Text('Gostaria de apagar o usuario ${widget.person.name}?'),
-                        actions: [
-                          TextButton(
-                            onPressed: () async {
-                              Navigator.of(context).pop(); // fecha o diálogo
-                            },
-                            child: const Text('Cancelar'),
-                          ),
-                          TextButton(
-                            onPressed: () async {
-                              //chama o metodo deleteData para excluir a pessoa pelo nome
-                              deleteData(widget.person.name);
-                              Navigator.of(context).pop(); // fecha o diálogo
-                              Navigator.of(context)
-                                  .pop(); // fecha a tela de detalhes
-                            },
-                            child: const Text('Apagar'),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  child: const Text('Apagar Usuario'),
-                ),
               ],
             ),
           ],
