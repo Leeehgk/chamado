@@ -41,6 +41,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -48,18 +49,49 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
+            TextFormField(
               controller: _emailController,
               decoration: InputDecoration(
                 labelText: 'E-mail',
+                prefixIcon: Icon(Icons.message),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(width: 1, color: Colors.grey),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(width: 1, color: Colors.red),
+                  borderRadius: BorderRadius.circular(20),
+                ),
               ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Por favor insira um E-mail';
+                }
+                // adicione a expressão regular para permitir o ponto
+                return null;
+              },
             ),
             SizedBox(height: 10),
-            TextField(
+            TextFormField(
               controller: _passwordController,
               decoration: InputDecoration(
                 labelText: 'Senha',
+                prefixIcon: Icon(Icons.key),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(width: 1, color: Colors.grey),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(width: 1, color: Colors.red),
+                  borderRadius: BorderRadius.circular(20),
+                ),
               ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Senha Incorreta ou Usuario Não Existe !';
+                }
+                return null;
+              },
               obscureText: true,
             ),
             SizedBox(height: 20),

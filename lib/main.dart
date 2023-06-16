@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:chamados/firebase_options.dart';
 import 'package:chamados/HomeScreen/HomeScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 void main() async {
@@ -33,6 +34,19 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(
             title: const Text('Chamados'),
             centerTitle: true,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.logout),
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                        (route) => false,
+                  );
+                },
+              ),
+            ],
             bottom: TabBar(
               tabs: [
                 Tab(icon: Icon(Icons.home), text: 'Home'),
