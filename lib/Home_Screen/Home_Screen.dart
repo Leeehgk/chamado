@@ -76,12 +76,12 @@ class _PersonFormState extends State<PersonForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   TextFormField(
                     controller: _nameController,
                     decoration: InputDecoration(
                       labelText: 'Nome',
-                      prefixIcon: Icon(Icons.person),
+                      prefixIcon: const Icon(Icons.person),
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(width: 1, color: Colors.grey),
                         borderRadius: BorderRadius.circular(20),
@@ -98,12 +98,12 @@ class _PersonFormState extends State<PersonForm> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   TextFormField(
                     controller: _ramalController,
                     decoration: InputDecoration(
                       labelText: 'Ramal',
-                      prefixIcon: Icon(Icons.phone),
+                      prefixIcon: const Icon(Icons.phone),
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(width: 1, color: Colors.grey),
                         borderRadius: BorderRadius.circular(20),
@@ -124,14 +124,14 @@ class _PersonFormState extends State<PersonForm> {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
                     controller: _ipController,
                     decoration: InputDecoration(
                       labelText: 'ip',
-                      prefixIcon: Icon(Icons.auto_fix_high),
+                      prefixIcon: const Icon(Icons.auto_fix_high),
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(width: 1, color: Colors.grey),
                         borderRadius: BorderRadius.circular(20),
@@ -149,7 +149,7 @@ class _PersonFormState extends State<PersonForm> {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
@@ -157,7 +157,7 @@ class _PersonFormState extends State<PersonForm> {
                     controller: _problemController,
                     decoration: InputDecoration(
                       labelText: 'problema',
-                      prefixIcon: Icon(Icons.assignment),
+                      prefixIcon: const Icon(Icons.assignment),
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(width: 1, color: Colors.grey),
                         borderRadius: BorderRadius.circular(20),
@@ -174,12 +174,12 @@ class _PersonFormState extends State<PersonForm> {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   ElevatedButton(
                     onPressed: _savePerson,
-                    child: Text(
+                    child: const Text(
                       'Salvar',
                       textAlign: TextAlign.center,
                     ),
@@ -223,17 +223,17 @@ class PersonList extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('Confirmação'),
+                        title: const Text('Confirmação'),
                         content: Text('Deseja realmente excluir ${person.name}?'),
                         actions: <Widget>[
                           TextButton(
-                            child: Text('Cancelar'),
+                            child: const Text('Cancelar'),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
                           ),
                           TextButton(
-                            child: Text('Excluir'),
+                            child: const Text('Excluir'),
                             onPressed: () {
                               Navigator.of(context).pop();
                               deleteData(person.name);
@@ -244,7 +244,7 @@ class PersonList extends StatelessWidget {
                     },
                   );
                 },
-                child: Icon(Icons.delete),
+                child: const Icon(Icons.delete),
               ),
               onTap: () {
                 Navigator.push(
@@ -351,7 +351,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               controller: _ramalController,
               decoration: InputDecoration(
                 labelText: 'Ramal',
-                prefixIcon: Icon(Icons.phone),
+                prefixIcon: const Icon(Icons.phone),
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(width: 1, color: Colors.grey),
                   borderRadius: BorderRadius.circular(20),
@@ -373,7 +373,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               controller: _ipController,
               decoration: InputDecoration(
                 labelText: 'IP',
-                prefixIcon: Icon(Icons.auto_fix_high),
+                prefixIcon: const Icon(Icons.auto_fix_high),
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(width: 1, color: Colors.grey),
                   borderRadius: BorderRadius.circular(20),
@@ -397,7 +397,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               controller: _problemController,
               decoration: InputDecoration(
                 labelText: 'Problema',
-                prefixIcon: Icon(Icons.assignment),
+                prefixIcon: const Icon(Icons.assignment),
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(width: 1, color: Colors.grey),
                   borderRadius: BorderRadius.circular(20),
@@ -464,8 +464,8 @@ void deleteData(String name) async {
       .get();
 
   // Exclui o documento encontrado
-  querySnapshot.docs.forEach((doc) {
+  for (var doc in querySnapshot.docs) {
     doc.reference.delete();
-  });
+  }
 }
 

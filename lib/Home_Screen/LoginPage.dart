@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -28,12 +30,12 @@ class _LoginPageState extends State<LoginPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Erro de Conexão'),
-          content: Text('Por favor, verifique sua conexão com a internet.'),
+          title: const Text('Erro de Conexão'),
+          content: const Text('Por favor, verifique sua conexão com a internet.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -54,12 +56,11 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => MyApp(),
+            builder: (context) => const MyApp(),
           ),
         );
       }
     } catch (e) {
-      print('Erro no login: $e');
     }
   }
 
@@ -67,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
         centerTitle: true,
       ),
       body: Padding(
@@ -80,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
               controller: _emailController,
               decoration: InputDecoration(
                 labelText: 'E-mail',
-                prefixIcon: Icon(Icons.message),
+                prefixIcon: const Icon(Icons.message),
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(width: 1, color: Colors.grey),
                   borderRadius: BorderRadius.circular(20),
@@ -98,12 +99,12 @@ class _LoginPageState extends State<LoginPage> {
                 return null;
               },
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormField(
               controller: _passwordController,
               decoration: InputDecoration(
                 labelText: 'Senha',
-                prefixIcon: Icon(Icons.key),
+                prefixIcon: const Icon(Icons.key),
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(width: 1, color: Colors.grey),
                   borderRadius: BorderRadius.circular(20),
@@ -121,10 +122,10 @@ class _LoginPageState extends State<LoginPage> {
               },
               obscureText: true,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _signInWithEmailAndPassword,
-              child: Text('Entrar'),
+              child: const Text('Entrar'),
             ),
           ],
         ),
