@@ -1,8 +1,8 @@
-import 'package:chamados/HomeScreen/LoginPage.dart';
+import 'package:chamados/Home_Screen/LoginPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:chamados/firebase_options.dart';
-import 'package:chamados/HomeScreen/HomeScreen.dart';
+import 'package:chamados/Home_Screen/Home_Screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 
