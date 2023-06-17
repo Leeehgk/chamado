@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:chamados/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +14,33 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+
+
+  Future<bool> _checkInternetConnectivity() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    return connectivityResult != ConnectivityResult.none;
+  }
+
   void _signInWithEmailAndPassword() async {
+    bool isConnected = await _checkInternetConnectivity();
+
+    if (!isConnected) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Erro de Conexão'),
+          content: Text('Por favor, verifique sua conexão com a internet.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
     try {
       final String email = _emailController.text.trim();
       final String password = _passwordController.text;
