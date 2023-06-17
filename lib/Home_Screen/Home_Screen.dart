@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 
@@ -7,13 +8,24 @@ class Person {
   final int ramal;
   final String ip;
   final String problem;
+  String email; // Alteração feita aqui
 
-  Person({required this.name, required this.ramal, required this.ip, required this.problem});
-
-
+  Person({
+    required this.name,
+    required this.ramal,
+    required this.ip,
+    required this.problem,
+    required this.email,
+  });
 
   Map<String, dynamic> toMap() {
-    return {'name': name, 'ramal': ramal, 'ip': ip, 'problem': problem};
+    return {
+      'name': name,
+      'ramal': ramal,
+      'ip': ip,
+      'problem': problem,
+      'email': email,
+    };
   }
 }
 
@@ -40,14 +52,29 @@ class _PersonFormState extends State<PersonForm> {
     super.dispose();
   }
 
-  void _savePerson() {
+  void _savePerson() async {
     if (_formKey.currentState!.validate()) {
       final person = Person(
         name: _nameController.text.trim(),
         ramal: int.parse(_ramalController.text.trim()),
         ip: _ipController.text.trim(),
         problem: _problemController.text.trim(),
+        email: '', // Atualize essa linha com o e-mail correto
       );
+
+      // Obtém a instância atual do FirebaseAuth
+      final FirebaseAuth auth = FirebaseAuth.instance;
+
+      // Verifica se há um usuário logado
+      if (auth.currentUser != null) {
+        // Obtém o e-mail do usuário logado
+        final String? email = auth.currentUser!.email;
+
+        // Atualiza o campo email do objeto person
+        if (email != null) {
+          person.email = email;
+        }
+      }
 
       FirebaseFirestore.instance.collection('people').add(person.toMap());
 
@@ -56,11 +83,14 @@ class _PersonFormState extends State<PersonForm> {
       _ipController.clear();
       _problemController.clear();
     }
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Dados atualizados com sucesso!'),
-      backgroundColor: Colors.green,
-    ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Dados atualizados com sucesso!'),
+        backgroundColor: Colors.green,
+      ),
+    );
   }
+
 
 
   @override
@@ -209,7 +239,7 @@ class PersonList extends StatelessWidget {
           return const Text('Carregando...');
         }
         final people = snapshot.data!.docs
-            .map((doc) => Person(name: doc['name'], ramal: doc['ramal'], ip: doc['ip'], problem: doc['problem']))
+            .map((doc) => Person(name: doc['name'], ramal: doc['ramal'], ip: doc['ip'], problem: doc['problem'], email: doc['email']))
             .toList();
         return ListView.builder(
           itemCount: people.length,
