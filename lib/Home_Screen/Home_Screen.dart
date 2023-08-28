@@ -280,6 +280,15 @@ class PersonList extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
+                    builder: (context) => launchChatWithEmail(person.email),
+                  ),
+                );
+              },
+              onLongPress: () {
+                // Iniciar um chat com a pessoa
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
                     builder: (context) => PersonDetailsScreen(person: person),
                   ),
                 );
@@ -291,6 +300,11 @@ class PersonList extends StatelessWidget {
     );
   }
 }
+
+launchChatWithEmail(String email) {
+  // Lógica para iniciar um chat com o e-mail fornecido
+  // Isso pode envolver a utilização de pacotes de chat ou integrações externas
+  }
 
 
 class PersonDetailsScreen extends StatefulWidget {
